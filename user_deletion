@@ -1,0 +1,10 @@
+#!/bin/bash
+##simple script file to delete users through user input
+## $1 is the user input argument
+##if user is present in the machine, it will delete the user else, it will print a message like "no user"
+
+if [[ $(sudo cat /etc/passwd | grep "$1") ]];then
+        sudo userdel -r $1
+else
+        echo "no $1"
+fi
