@@ -1,0 +1,24 @@
+#!/bin/bash
+
+Adding_Users () {
+        echo "Enter the User-name : $1"
+        if [[ $(sudo cat /etc/passwd | grep "$1") ]];then
+                echo "user $1 already exist!"
+        else
+                sudo useradd $1
+                sudo mkdir /home/$1/.ssh
+                sudo chown $1:$1 /home/$1/.ssh ; sudo chmod 700 /home/$1/.ssh
+                sudo cd /home/$1/.ssh && sudo ssh-keygen -t rsa -N "" -f /home/$1/.ssh/id_rsa 2>/dev/null
+                sudo chown $1:$1 /home/$1/.ssh/id_rsa ; sudo chown $1:$1 /home/$1/.ssh/id_rsa.pub
+                sudo touch /home/$1/.ssh/authorized_keys ; sudo cp /home/$1/.ssh/id_rsa.pub /home/$1/.ssh/authorized_keys ; sudo chmod 600 /home/$1/.ssh/authorized_keys
+                sudo chown $1:$1 /home/$1/.ssh/authorized_keys
+        fi
+}
+
+Adding_Users $1
+
+
+##This script will create a user and the username is given by user-input ($1).
+##If the user is already exist in the working system, the script will display a message like "user already exist".
+##"ssh-keygen -t rsa -N "" -f /home/$1/.ssh/id_rsa" this command will ignore the phassphrase and save the key which we mentioned after -f flag.
+##"Adding_Users" is a shell function which we use inside this bash script.
