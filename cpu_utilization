@@ -1,0 +1,10 @@
+#!/bin/sh
+
+##this script will print out the CPU Utilization of the current working linux machine
+
+
+cpu_percentage=$(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage "%"}')
+
+
+
+echo "Your CPU Utilization is ${cpu_percentage}"
