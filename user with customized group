@@ -18,3 +18,5 @@ Adding_Users () {
                 sudo cp /home/$usr/.ssh/id_rsa.pub /tmp ; sudo chmod 777 /tmp/id_rsa.pub
         fi
 }
+Adding_Users $usr $cmnt $uid $grp
+
