@@ -1,0 +1,18 @@
+#!/bin//bash
+
+hostfile=`cat /tmp/hosts`
+                read -p 'Username: ' usr
+                read -p 'Comment:  ' cmnt
+                read -p 'User ID: ' uid
+                read -p 'Group: ' grp
+
+for i in $hostfile; do
+ssh -o StrictHostKeyChecking=no -o connecttimeout=5 $i "ls" > /dev/null 2>&1
+        if  [[ $? -eq 0 ]];then
+                echo "success in $i"
+                scp /tmp/id_rsa.pub $i:/tmp
+                ssh -o StrictHostKeyChecking=no -o connecttimeout=5  $i "sudo groupadd $grp ;sudo useradd  $usr -c $cmnt -u $uid -g $grp ;sudo mkdir /home/$usr/.ssh ; sudo chown $usr:$grp /home/$usr/.ssh ; sudo chmod 700 /home/$usr/.ssh ; sudo cd /home/$usr/.ssh ;  sudo touch /home/$usr/.ssh/authorized_keys ;sudo cp /tmp/id_rsa.pub /home/$usr/.ssh/authorized_keys ; sudo chmod 600 /home/$usr/.ssh/authorized_keys ; sudo chown $usr:$grp /home/$usr/.ssh/authorized_keys ; sudo rm -fr /tmp/id_rsa" 2>/dev/null
+        else
+                echo "error in $i"
+        fi
+done
