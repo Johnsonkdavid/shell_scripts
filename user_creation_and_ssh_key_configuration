@@ -8,7 +8,7 @@ Adding_Users () {
                 sudo useradd $1
                 sudo mkdir /home/$1/.ssh
                 sudo chown $1:$1 /home/$1/.ssh ; sudo chmod 700 /home/$1/.ssh
-                sudo cd /home/$1/.ssh && sudo ssh-keygen -t rsa -N "" -f /home/$1/.ssh/id_rsa 2>/dev/null
+                sudo ssh-keygen -t rsa -N "" -f /home/$1/.ssh/id_rsa 2>/dev/null
                 sudo chown $1:$1 /home/$1/.ssh/id_rsa ; sudo chown $1:$1 /home/$1/.ssh/id_rsa.pub
                 sudo touch /home/$1/.ssh/authorized_keys ; sudo cp /home/$1/.ssh/id_rsa.pub /home/$1/.ssh/authorized_keys ; sudo chmod 600 /home/$1/.ssh/authorized_keys
                 sudo chown $1:$1 /home/$1/.ssh/authorized_keys
