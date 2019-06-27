@@ -1,0 +1,4 @@
+To restore the user login prompt, just copy the dot files /etc/skell/ directory and paste it into user home directory.
+
+
+sudo cp -r /etc/skel/. /home/jo
