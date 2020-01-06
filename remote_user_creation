@@ -10,7 +10,7 @@ hostfile=`cat /tmp/hosts`
 
 
 
-cat > /tmp/davi020 << END
+cat > /tmp/file.txt << END
 #!/bin/bash
 sudo useradd  $usr -c "$cmnt" -u $uid -g $grp
 sudo mkdir /home/$usr/.ssh
@@ -29,7 +29,7 @@ ssh -o StrictHostKeyChecking=no -o ConnectTimeout=5 $i "ls" &> /dev/null
       if  [[ $? -eq 0 ]];then
                 echo "success in $i"
                 scp /tmp/id_rsa.pub $i:/tmp
-                ssh  -o StrictHostKeyChecking=no -o ConnectTimeout=5 $i < /tmp/davi020
+                ssh  -o StrictHostKeyChecking=no -o ConnectTimeout=5 $i < /tmp/file.txt
       else
                 echo "error in $i"
       fi
